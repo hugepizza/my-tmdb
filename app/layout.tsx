@@ -2,7 +2,6 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Nav from "./components/Nav";
-import Footer from "./components/Footer";
 import Content from "./components/Content";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,7 +18,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="flex flex-col h-full w-full">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body
+        className={`flex flex-col h-full w-full ${inter.className}`}
+        style={{ fontFamily: `'Open Sans', sans-serif;` }}
+      >
         <Nav />
         <Content>{children}</Content>
         {/* <Footer /> */}

@@ -4,17 +4,17 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
+  --background-start-rgb: 255, 255, 255;
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -24,4 +24,80 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+}
+
+html {
+  --numberOfPosterColumns: 1;
+  --numberOfDiscoverColumns: 1;
+}
+
+@media only screen and (min-width: 760px) {
+  html {
+    --numberOfPosterColumns: 2;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  html {
+    --numberOfBackdropColumns: 2;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  html {
+    --numberOfPosterColumns: 3;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  html {
+    --numberOfBackdropColumns: 3;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  html {
+    --numberOfPosterColumns: 4;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  html {
+    --numberOfBackdropColumns: 4;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  html {
+    --numberOfDiscoverColumns: 2;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  html {
+    --numberOfDiscoverColumns: 3;
+  }
+}
+
+@media only screen and (min-width: 1040px) {
+  html {
+    --numberOfDiscoverColumns: 4;
+  }
+}
+
+@media only screen and (min-width: 1240px) {
+  html {
+    --numberOfDiscoverColumns: 5;
+  }
+}
+
+.large-card {
+  --width: calc(
+    (100vw - 80px - 260px - (20px * var(--numberOfDiscoverColumns))) /
+      var(--numberOfDiscoverColumns)
+  );
+  width: var(--width);
+  height: calc(var(--width) * 1.8);
+  min-width: 155px;
+  min-height: calc(155px * 1.8);
 }

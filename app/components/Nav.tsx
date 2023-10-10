@@ -1,12 +1,12 @@
 import Image from "next/image";
 export default function Nav() {
   return (
-    <div className="flex-grow-0 w-full h-16 bg-slate-800 justify-between">
-      <div className="flex flex-row h-full py-3 px-10 items-center">
+    <div className="flex flex-grow-0 w-full h-16 bg-slate-800 justify-between">
+      <div className="flex flex-row h-full py-3 px-10 items-center   flex-shrink-0">
         <a href="/" className="mr-4">
-          <Image alt="imdb" src={"nav_logo.svg"} width={154} height={20} />
+          <Image alt="imdb" src={"/nav_logo.svg"} width={154} height={20} />
         </a>
-        <ul className="menu menu-vertical lg:menu-horizontal rounded-box">
+        <ul className="menu menu-horizontal lg:menu-horizontal rounded-box text-gray-100">
           <li className="mr-[14px]">
             <a className="p-2">Movies</a>
           </li>
