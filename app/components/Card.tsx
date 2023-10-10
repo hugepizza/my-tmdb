@@ -2,6 +2,15 @@ import Image from "next/image";
 import fetchTending from "../sdk/imdb/trending";
 import { useEffect, useState } from "react";
 
+import React from "react";
+
+declare module "react" {
+  interface CSSProperties {
+    "--value"?: string | number;
+    "--size"?: string | number;
+    "--thickness"?: string | number;
+  }
+}
 export interface CardProps {
   original_name: string;
   original_title: string;
@@ -52,7 +61,11 @@ export function Card({
             vote_average
           )}
             `}
-          style={{ "--value": 70, "--size": "12rem", "--thickness": "2px" }}
+          style={{
+            "--value": (vote_average * 10).toFixed(0),
+            "--size": "12rem",
+            "--thickness": "2px",
+          }}
         >
           <span className="text-xs text-white">
             {(vote_average * 10).toFixed(0)}

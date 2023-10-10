@@ -19,3 +19,8 @@ in large card, use calc(css var) to get width
 hight is not working in collapse
 
 found [solution](https://github.com/saadeghi/daisyui/discussions/1110#discussioncomment-3616445)
+
+## daisy has invalid CSSProperties
+in radial-progress, daisy use --value to set progress, however react CSSProperties doesn't has this field
+
+use declare module "react" to extend react CSSProperties
