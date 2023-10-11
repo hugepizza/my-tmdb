@@ -26,7 +26,7 @@ export default function RootLayout({
       </head>
       <body
         className={`flex flex-col h-full w-full ${inter.className}`}
-        style={{ fontFamily: `'Open Sans', sans-serif;` }}
+        style={{ fontFamily: "'Open Sans', sans-serif" }}
       >
         <Nav />
         <Content>{children}</Content>
