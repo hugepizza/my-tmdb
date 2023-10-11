@@ -5,6 +5,9 @@ useing [daisay ui](https://daisyui.com/) for ui
 using [tmdb](https://developer.themoviedb.org/reference/intro/getting-started) api
 
 👉 [PREVIEW](https://my-tmdb-h5en7j8st-hugepizza.vercel.app/)
+
+![Alt text](image.png)
+
 ## probloms I've met
 ### rsc can't be rerendered
 in home page, i'm using nested rsc and client component, i was planing to use setState to switch tabs and pass something like props to rerender rsc by new fetch data.
