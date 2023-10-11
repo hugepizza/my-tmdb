@@ -91,6 +91,36 @@ html {
   }
 }
 
+@media only screen and (min-width: 0px) {
+  html {
+    --mediaInfoHeight: 585px;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  html {
+    --mediaInfoHeight: 585px;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  html {
+    --mediaInfoHeight: 565px;
+  }
+}
+
+@media only screen and (min-width: 975px) {
+  html {
+    --mediaInfoHeight: 545px;
+  }
+}
+
+@media only screen and (min-width: 1096px) {
+  html {
+    --mediaInfoHeight: 525px;
+  }
+}
+
 .large-card {
   --width: calc(
     (100vw - 80px - 260px - (20px * var(--numberOfDiscoverColumns))) /
@@ -100,4 +130,9 @@ html {
   height: calc(var(--width) * 1.8);
   min-width: 155px;
   min-height: calc(155px * 1.8);
+}
+
+.media-info {
+  width: 100%;
+  height: calc(var(--mediaInfoHeight));
 }

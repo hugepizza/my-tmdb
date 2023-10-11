@@ -1,6 +1,5 @@
-import fetchTopRatedMovies from "../sdk/imdb/movie/top_rated";
+import fetchTopRated from "../sdk/imdb/top_rated";
 import fetchTending from "../sdk/imdb/trending";
-import fetchTopRatedTv from "../sdk/imdb/tv/top_rated";
 import CardList from "./Card";
 import Scroller from "./ScrollerClient";
 
@@ -23,9 +22,10 @@ export async function ScrollerTrending() {
 }
 
 export async function ScrollerTopRated() {
-  const movies = await fetchTopRatedMovies();
-  const tv = await fetchTopRatedTv();
-
+  const movies = await fetchTopRated("movie");
+  movies.forEach((ele) => (ele.media_type = "movie"));
+  const tv = await fetchTopRated("tv");
+  tv.forEach((ele) => (ele.media_type = "tv"));
   return (
     <Scroller switchProps={{ title: "Top Rated" }}>
       {{

@@ -4,6 +4,7 @@ import SearchResult from "./SearchResult";
 import { SearchContext } from "../components/SearchContext";
 import SearchFilter from "../components/SearchFilter";
 import { navConfig } from "../components/Nav";
+import { Media, mediaType } from "../sdk/imdb/types";
 
 export default function Page({ params }: { params: { slug: string[] } }) {
   const mediaType = params.slug[0];
@@ -14,7 +15,6 @@ export default function Page({ params }: { params: { slug: string[] } }) {
   const title = navConfig
     .find((ele) => ele.route === mediaType)
     ?.channels.find((ele) => ele.route === channel)?.title;
-  console.log(navConfig.find((ele) => ele.route === mediaType));
 
   if (!title) {
     return <div>Channel Not Exists</div>;
@@ -26,6 +26,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         setSearchResult: setSearchResult,
         page: page,
         setPage: setPage,
+        mediaType: mediaType as mediaType,
       }}
     >
       <div className="flex flex-col h-full w-full px-10 py-[20px] test">

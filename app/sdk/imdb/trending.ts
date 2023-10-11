@@ -1,5 +1,5 @@
 import api from "./axios";
-
+import { Media, mediaType, timeWindow } from "./types";
 const url = (mediaType: mediaType, timeWindow: timeWindow, lang?: string) => {
   return `https://api.themoviedb.org/3/trending/${mediaType}/${timeWindow}`;
 };

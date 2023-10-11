@@ -1,7 +1,7 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
-import fetchSearchMovies from "../sdk/imdb/movie/search";
 import { SearchContext } from "./SearchContext";
+import fetchSearch from "../sdk/imdb/search";
 
 interface SearchParams {
   sort: string | undefined;
@@ -13,9 +13,9 @@ export default function SearchFilter() {
   const [searchParams, setSearchParams] = useState<SearchParams>(
     {} as SearchParams
   );
-  const { setSearchResult, searchResult, setPage } = useContext(SearchContext);
+  const { mediaType, setSearchResult, setPage } = useContext(SearchContext);
   const search = async (param: SearchParams) => {
-    const medias = await fetchSearchMovies(1);
+    const medias = await fetchSearch(mediaType, 1);
     setSearchResult(medias);
     setPage(1);
   };

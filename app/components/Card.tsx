@@ -18,6 +18,8 @@ export interface CardProps {
   vote_average: number;
   release_date: string;
   first_air_date: string;
+  media_type: string;
+  id: number;
 }
 
 const rateColor = (rate: number) => {
@@ -34,13 +36,15 @@ export function Card({
   vote_average,
   first_air_date,
   release_date,
+  media_type,
+  id,
 }: CardProps) {
   const title = original_name ?? original_title;
   const date = first_air_date ?? release_date;
   return (
     <div className="flex w-[150px]  h-[295px]  ml-10 flex-col flex-shrink-0">
       <div className="relative">
-        <a>
+        <a href={`/media/${media_type}/${id}`}>
           <Image
             src={
               "https://www.themoviedb.org/t/p/w440_and_h660_face/" + poster_path
@@ -88,6 +92,8 @@ export function CardLarge({
   vote_average,
   first_air_date,
   release_date,
+  media_type,
+  id,
 }: CardProps) {
   const title = original_name ?? original_title;
   const date = first_air_date ?? release_date;
@@ -95,7 +101,7 @@ export function CardLarge({
   return (
     <div className="flex h-[344px] mt-[30px] flex-col ml-0 flex-shrink-0 border-solid border-[1px] shadow-md rounded-lg bg-white box-border large-card">
       <div className="relative  w-full h-full">
-        <a className="w-full h-full">
+        <a className="w-full h-full" href={`/media/${media_type}/${id}`}>
           <Image
             src={
               "https://www.themoviedb.org/t/p/w440_and_h660_face/" + poster_path
@@ -128,14 +134,10 @@ export function CardLarge({
 }
 
 export default async function CardList({ cards }: { cards: CardProps[] }) {
-  cards.forEach((ele) => {
-    console.log([ele.poster_path, ele.original_name]);
-  });
-
   return (
     <div className="flex flex-row overflow-x-auto py-5 overflow-y-hidden">
       {cards.map((ele) => (
-        <Card key={ele.original_name} {...ele} />
+        <Card key={ele.original_name} {...ele} media_type={ele.media_type} />
       ))}
     </div>
   );

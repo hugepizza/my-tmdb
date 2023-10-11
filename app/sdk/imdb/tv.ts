@@ -1,4 +1,5 @@
 import api from "./axios";
+import { Media } from "./types";
 
 const url = (page?: number, lang?: string) => {
   return `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=${
