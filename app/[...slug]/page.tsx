@@ -1,10 +1,10 @@
 "use client";
-import { SearchContext } from "@/app/components/SearchContext";
-import SearchFilter from "@/app/components/SearchFilter";
 import { useState } from "react";
 import SearchResult from "./SearchResult";
+import { SearchContext } from "../components/SearchContext";
+import SearchFilter from "../components/SearchFilter";
 
-export default function Page({ params }: { params: { slug: string } }) {
+export default function Page({ params }: { params: { slug: string[] } }) {
   const mod = () => {
     switch (params.slug) {
       case "popular":
