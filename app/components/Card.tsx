@@ -95,14 +95,14 @@ export function CardLarge({
   return (
     <div className="flex h-[344px] mt-[30px] flex-col ml-0 flex-shrink-0 border-solid border-[1px] shadow-md rounded-lg bg-white box-border large-card">
       <div className="relative  w-full h-full">
-        <a className=" w-full h-full">
+        <a className="w-full h-full">
           <Image
             src={
               "https://www.themoviedb.org/t/p/w440_and_h660_face/" + poster_path
             }
             alt={title}
-            layout="fill"
-            objectFit="cover"
+            fill
+            style={{ objectFit: "cover" }}
             className="rounded-lg rounded-b-none"
           />
         </a>

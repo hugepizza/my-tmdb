@@ -5,7 +5,7 @@ export const navConfig = [
   {
     title: "Movies",
     route: "movie",
-    channel: [
+    channels: [
       { title: "Popular", route: "" },
       { title: "Now Playing", route: "now-playing" },
       { title: "Upcoming", route: "upcoming" },
@@ -14,8 +14,8 @@ export const navConfig = [
   },
   {
     title: "TV shows",
-    route: "movie",
-    channel: [
+    route: "tv",
+    channels: [
       { title: "Popular", route: "" },
       { title: "Airing Today", route: "airing-today" },
       { title: "On TV", route: "on-the-air" },
@@ -25,7 +25,7 @@ export const navConfig = [
   {
     title: "People",
     route: "person",
-    channel: [{ title: "Popular People", route: "" }],
+    channels: [{ title: "Popular People", route: "" }],
   },
 ];
 
@@ -49,7 +49,7 @@ export default function Nav() {
                 tabIndex={0}
                 className="dropdown-content z-[10] menu p-2 shadow bg-base-100 rounded-lg w-52 text-black"
               >
-                {ele.channel.map((c) => (
+                {ele.channels.map((c) => (
                   <li key={c.route}>
                     <a href={`/${ele.route}/${c.route}`}>{c.title}</a>
                   </li>
