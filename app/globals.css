@@ -27,6 +27,8 @@ body {
 }
 
 html {
+  font-family: "Open Sans", sans-serif;
+  font-family: "Source Sans 3", sans-serif;
   --numberOfPosterColumns: 1;
   --numberOfDiscoverColumns: 1;
 }

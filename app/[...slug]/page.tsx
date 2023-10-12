@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
 import SearchResult from "./SearchResult";
-import { SearchContext } from "../components/SearchContext";
-import SearchFilter from "../components/SearchFilter";
+import { SearchContext } from "./SearchContext";
+import SearchFilter from "./SearchFilter";
 import { navConfig } from "../components/Nav";
 import { Media, mediaType } from "../sdk/imdb/types";
 

@@ -1,5 +1,5 @@
 import { CardLarge } from "@/app/components/Card";
-import { SearchContext } from "@/app/components/SearchContext";
+import { SearchContext } from "@/app/[...slug]/SearchContext";
 import { useContext, useEffect } from "react";
 import fetchSearch from "../sdk/imdb/search";
 

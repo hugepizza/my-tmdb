@@ -1,7 +1,10 @@
-import fetchMovieCredit from "@/app/sdk/imdb/movie/credit";
 import fetchMovieDetail from "@/app/sdk/imdb/movie/detail";
-import { Credit, MediaDetail } from "@/app/sdk/imdb/types";
-import Image from "next/image";
+import MediaInfo from "./MediaInfo";
+import TopBar from "./TapBar";
+import CastList from "./CastList";
+import fetchExternalIds from "@/app/sdk/imdb/external_ids";
+import fetchKeywords from "@/app/sdk/imdb/keywords";
+
 export default async function Page({ params }: { params: { slug: string[] } }) {
   const mediaType = params.slug[0];
   const id = params.slug[1];
@@ -9,103 +12,105 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
   if (!mediaType || !id) {
     return <div>Channel Not Exists</div>;
   }
-  const media = await fetchMovieDetail(id);
-  const credit = await fetchMovieCredit(id);
 
   return (
     <div className="flex flex-col w-full h-full items-center">
       <TopBar />
-      <MediaInfo media={media} credit={credit} />
+      <MediaInfo mediaId={id} mediaType={mediaType} />
+      <ExtraInfo mediaId={id} mediaType={mediaType} />
     </div>
   );
 }
 
-function TopBar() {
-  return <div className="w-full h-[46px]">123</div>;
+async function ExtraInfo({
+  mediaType,
+  mediaId,
+}: {
+  mediaType: string;
+  mediaId: string;
+}) {
+  return (
+    <div className="flex w-full px-10 py-[30px] flex-row">
+      <div className="flex flex-col flex-1 bg-white pr-[30px] overflow-x-hidden">
+        <CastList mediaId={mediaId} mediaType={mediaType} />
+        <div className="divider" />
+      </div>
+      <div className="flex flex-col bg-white w-[260px]">
+        <Facts mediaId={mediaId} mediaType={mediaType} />
+        <div className="divider" />
+      </div>
+    </div>
+  );
 }
 
-function MediaInfo({ media, credit }: { media: MediaDetail; credit: Credit }) {
-  const director = credit.crew.find((ele) => ele.job.includes("Director"));
-  const writer = credit.crew.find((ele) => ele.job.includes("Writer"));
+async function Facts({
+  mediaType,
+  mediaId,
+}: {
+  mediaType: string;
+  mediaId: string;
+}) {
+  const media = await fetchMovieDetail(mediaId);
+  const externalIds = await fetchExternalIds(mediaType, mediaId);
+  const keywords = await fetchKeywords(mediaType, mediaId);
+
   return (
-    <div
-      className="flex flex-row media-info"
-      style={{
-        backgroundImage: `url(${
-          "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces" +
-          media.backdrop_path
-        })`,
-        backgroundSize: "cover",
-        backgroundRepeat: "no-repeat",
-        backgroundPositionX: "left",
-        backgroundPositionY: "top",
-      }}
-    >
-      <div
-        className="w-full h-full flex flex-row  px-[40px] py-[30px] "
-        style={{ backgroundColor: "rgba(0,0,0,0.8)" }}
-      >
-        <div className="min-h-[450px] min-w-[300px]">
-          <Image
-            src={`${
-              "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/" +
-              media.poster_path
-            }`}
-            alt={media.original_title}
-            width={300}
-            height={450}
-            className="rounded-lg"
-          />
-        </div>
-        <div className="flex flex-col pl-10 text-white">
-          <h1 className="text-[35px] font-semibold">
-            {media.title}{" "}
-            <span className="text-slate-400">
-              {`(${media.release_date.split("-")[0]})`}
-            </span>
-          </h1>
-          <div className="text-[16px] font-extralight tracking-wide">
-            {/* <span>{media.budget }</span> */}
-            <span>
-              {media.release_date.split("-").reverse().join("/") +
-                (media.production_countries[0]
-                  ? `(${media.production_countries[0].iso_3166_1})`
-                  : "")}
-            </span>
-            <span>
-              {" • "}
-              {media.genres.map((ele) => ele.name).join(",")}
-            </span>
-            <span>
-              {" • "}
-              {`${Math.floor(media.runtime / 60)}h ${media.runtime % 60}m`}
-            </span>
-            <div className="flex flex-col">
-              <h3 className="italic font-thin">{media.tagline}</h3>
-              <h3 className="font-medium my-[10px]">Overview</h3>
-              <div>{media.overview}</div>
-              <div className="flex flex-row mt-5">
-                {director && (
-                  <div className="mr-4">
-                    <p className="font-extrabold">
-                      <a href={"/person/" + director.id}>{director.name}</a>
-                    </p>
-                    <p>{director.job}</p>
-                  </div>
-                )}
-                {writer && (
-                  <div>
-                    <p className="font-extrabold">
-                      <a href={"/person/" + writer.id}>{writer.name}</a>
-                    </p>
-                    <p>{writer.job}</p>
-                  </div>
-                )}
-              </div>
+    <section className="flex flex-col w-full text-base">
+      <div className="flex w-full flex-row h-[60px]">
+        <ExternalLink
+          {...{ platform: "instagram", id: externalIds.instagram_id }}
+        />
+      </div>
+      <FactItem {...{ title: "Status", value: media.status }} />
+      <FactItem
+        {...{ title: "Original Language", value: media.original_language }}
+      />
+      <FactItem
+        {...{ title: "Budget", value: `$${media.budget.toLocaleString()}` }}
+      />
+      <FactItem
+        {...{ title: "Budget", value: `$${media.revenue.toLocaleString()}` }}
+      />
+      <div className="flex flex-col my-[30px]">
+        <h4>Keywords</h4>
+        <div className="flex flex-wrap">
+          {keywords.keywords.map((ele) => (
+            <div
+              key={ele.id}
+              className="badge mr-[4px] mb-[4px] rounded-md bg-slate-300 badge-lg border-none"
+            >
+              {ele.name}
             </div>
-          </div>
+          ))}
         </div>
       </div>
+    </section>
+  );
+}
+function ExternalLink({ platform, id }: { platform: string; id?: string }) {
+  if (!id) {
+    return <></>;
+  }
+  const href = `${platform}/${id}`;
+  return (
+    <span
+      style={{
+        backgroundImage: `url(/${platform}.svg)`,
+        height: 30.4,
+        width: 30.4,
+      }}
+    >
+      <a href={href}></a>
+    </span>
+  );
+}
+function FactItem({ title, value }: { title: string; value: string }) {
+  return (
+    <div className="mb-5 h-10">
+      <strong>
+        <bdi>{title}</bdi>
+      </strong>
+      <p>{value}</p>
     </div>
   );
 }
