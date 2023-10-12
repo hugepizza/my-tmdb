@@ -1,42 +1,42 @@
 "use client";
 import { useContext, useEffect, useState } from "react";
-import { SearchContext } from "./SearchContext";
-import fetchSearch from "../sdk/imdb/search";
+import { DiscoverContext } from "./DiscoverContext";
+import fetchDiscover from "../sdk/imdb/discover";
 
-interface SearchParams {
+interface DiscoverParams {
   sort: string | undefined;
   region: string | undefined;
   releaseDate: string | undefined;
   genres: string | undefined;
 }
-export default function SearchFilter() {
-  const [searchParams, setSearchParams] = useState<SearchParams>(
-    {} as SearchParams
+export default function DiscoverFilter() {
+  const [discoverParams, setDiscoverParams] = useState<DiscoverParams>(
+    {} as DiscoverParams
   );
-  const { mediaType, setSearchResult, setPage } = useContext(SearchContext);
-  const search = async (param: SearchParams) => {
-    const medias = await fetchSearch(mediaType, 1);
-    setSearchResult(medias);
+  const { mediaType, setDiscoverResult, setPage } = useContext(DiscoverContext);
+  const discover = async (param: DiscoverParams) => {
+    const medias = await fetchDiscover(mediaType, 1);
+    setDiscoverResult(medias);
     setPage(1);
   };
   return (
     <div className="flex flex-col flex-shrink-0 w-[260px]">
       <Collapse title="Sort">
         <SortCollapse
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
+          discoverParams={discoverParams}
+          setDiscoverParams={setDiscoverParams}
         />
       </Collapse>
       <Collapse title="Sort">
         <SortCollapse
-          searchParams={searchParams}
-          setSearchParams={setSearchParams}
+          discoverParams={discoverParams}
+          setDiscoverParams={setDiscoverParams}
         />
       </Collapse>
       <button
         className="btn mt-2"
         onClick={async () => {
-          await search(searchParams);
+          await discover(discoverParams);
         }}
       >
         Search
@@ -69,11 +69,11 @@ function Collapse({
 }
 
 function SortCollapse({
-  searchParams,
-  setSearchParams,
+  discoverParams,
+  setDiscoverParams,
 }: {
-  searchParams: SearchParams;
-  setSearchParams: (params: SearchParams) => void;
+  discoverParams: DiscoverParams;
+  setDiscoverParams: (params: DiscoverParams) => void;
 }) {
   const options = [
     { text: "Popularity Descending", value: "" },
@@ -91,7 +91,7 @@ function SortCollapse({
         <option
           key={ele.text}
           onClick={() => {
-            setSearchParams({ ...searchParams, sort: ele.value });
+            setDiscoverParams({ ...discoverParams, sort: ele.value });
           }}
         >
           {ele.text}

@@ -117,7 +117,11 @@ export function CardLarge({
         <div
           className={`absolute h-[30px] w-[30px] top-[-16px] left-[10px] radial-progress border-[px] border-black bg-black 
             ${rateColor(vote_average)}`}
-          style={{ "--value": 70, "--size": "12rem", "--thickness": "2px" }}
+          style={{
+            "--value": (vote_average * 10).toFixed(0),
+            "--size": "12rem",
+            "--thickness": "2px",
+          }}
         >
           <span className="text-xs text-white">
             {(vote_average * 10).toFixed(0)}
