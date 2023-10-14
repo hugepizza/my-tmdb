@@ -31,8 +31,8 @@ function Discover() {
       }}
     >
       <div className="flex flex-col w-full h-[184px] px-10">
-        <div className="flex flex-col  mb-5">
-          <h2 className="text-5xl">Welcome.</h2>
+        <div className="flex flex-col  mb-5 text-white">
+          <h2 className="text-5xl font-extrabold">Welcome.</h2>
           <h3 className="text-3xl">
             Millions of movies, TV shows and people to discover. Explore now.
           </h3>

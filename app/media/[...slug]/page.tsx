@@ -4,6 +4,7 @@ import TopBar from "./TapBar";
 import CastList from "./CastList";
 import fetchExternalIds from "@/app/sdk/imdb/external_ids";
 import fetchKeywords from "@/app/sdk/imdb/keywords";
+import Social from "./Social";
 
 export default async function Page({ params }: { params: { slug: string[] } }) {
   const mediaType = params.slug[0];
@@ -33,6 +34,8 @@ async function ExtraInfo({
     <div className="flex w-full px-10 py-[30px] flex-row">
       <div className="flex flex-col flex-1 bg-white pr-[30px] overflow-x-hidden">
         <CastList mediaId={mediaId} mediaType={mediaType} />
+        <div className="divider" />
+        <Social mediaId={mediaId} mediaType={mediaType} />
         <div className="divider" />
       </div>
       <div className="flex flex-col bg-white w-[260px]">

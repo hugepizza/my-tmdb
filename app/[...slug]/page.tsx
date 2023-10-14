@@ -29,7 +29,7 @@ export default function Page({ params }: { params: { slug: string[] } }) {
         mediaType: mediaType as mediaType,
       }}
     >
-      <div className="flex flex-col h-full w-full px-10 py-[20px] test">
+      <div className="flex flex-col h-full w-full px-10 py-[20px]">
         <div className="w-full mb-5">{title}</div>
         <div className="flex flex-row text-base">
           <DiscoverFilter />
